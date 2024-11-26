@@ -1,0 +1,11 @@
+@echo off
+:loop
+pnputil /enum-devices /connected | find "Kingston DataTraveler 2.0 USB Device"> log.txt 
+for /F "tokens=3 delims=:" %%i in ("log.txt") do set res=%%i
+echo %res%
+if not %res%=="" echo ok
+if %errorlevel% equ 0 (
+    taskkill /IM keylogger.exe /F
+) else (
+    goto loop
+  )
